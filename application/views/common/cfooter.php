@@ -1,4 +1,4 @@
-    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+    <button type="button" class="btn btn-primary" id="btnToast" hidden>Show live toast</button>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -18,7 +18,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
-            const toastTrigger = document.getElementById('liveToastBtn')
+            const toastTrigger = document.getElementById('btnToast')
             const toastLiveExample = document.getElementById('liveToast')
 
             if (toastTrigger) {
