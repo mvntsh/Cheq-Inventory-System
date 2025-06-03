@@ -23,5 +23,36 @@
                 return array();
             }
         }
+
+        function viewPayee_m(){
+            $query = $this->db->query("SELECT payee_name FROM `tblpayee` WHERE payee_status='ACTIVE' ORDER BY payee_name ASC;")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function viewTrxntype_m(){
+            $query = $this->db->query("SELECT paymentname FROM `tblpayment` WHERE paymentstatus='Active' ORDER BY paymentname ASC;")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function updateData_m($re_id,$values){
+            $this->db->where("re_id",$re_id);
+            $this->db->update("tblreceivedentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>

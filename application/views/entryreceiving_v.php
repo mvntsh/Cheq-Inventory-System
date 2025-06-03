@@ -7,7 +7,9 @@
                         <label for="inputnmRfpno">RFP No.</label>
                         <input type="text" id="inputnmRfpno" name="txtnmRfpno" class="form-control">
                         <label for="inputnmPayee" style="line-height: 5%;">Payee</label>
-                        <input type="text" id="inputnmPayee" name="txtnmRfpno" class="form-control">
+                        <select type="text" id="inputnmPayee" name="txtnmPayee" class="form-control">
+                            <option></option>
+                        </select>
                         <label for="inputnmDivision">Division</label>
                         <select name="txtnmDivision" id="inputnmDivision" class="form-control">
                             <option></option>
@@ -36,14 +38,14 @@
                     <div class="row">
                         <div class="col-md-8"><h3>Repository</h3></div>
                         <div class="col-md-4">
-                            <div class="input-group">
-                                <form id="frmSearch">
+                            <form id="frmSearch">
+                                <div class="input-group">
                                     <input type="text" name="txtnmSearch" id="inputnmSearch" class="form-control form-control-sm" autocomplete="off" placeholder="Search">
                                     <button class="btn btn-warning btn-sm" style="height: 28.7pt;" id="btnSearch">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; border-radius: 0px; overflow-y: scroll; height: 590px; scrollbar-width: thin; scrollbar-color: #fadba2 #c9a377; border-color: transparent;">
@@ -75,21 +77,75 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header" style="border-bottom: transparent;">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Update</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: red;" id="spanRfpno"></span></h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            ...
+            <form id="frmUpdate">
+                <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
+                <label for="inputnmUpdatepayee">Payee</label>
+                <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
+                    <option></option>
+                </select>
+                <label for="inputnmUpdatetrxntype">Transaction Type</label>
+                <select name="txtnmUpdatetrxntype" id="inputnmUpdatetrxntype" class="form-control">
+                    <option></option>
+                </select>
+                <label for="inputnmUpdateamount">Amount</label>
+                <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control form-control-sm">
+                <label for="inputnmUpdatedescription">Description</label>
+                <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
+            </form>
         </div>
         <div class="modal-footer" style="border-top: transparent;">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
-            <button type="button" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
         </div>
         </div>
     </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
+            viewPayee_v();
+            viewTrxntype_v();
+            function viewPayee_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/viewPayee_c',
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            var option = '';
+
+                            response.data.forEach(function(x){
+                                option += `<option value="${x['payee_name']}">${x['payee_name']}</option>`;
+                            })
+                            $("#inputnmUpdatepayee,#inputnmPayee").html(option);
+                        }
+                    }
+                })
+            }
+
+            function viewTrxntype_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/viewTrxntype_c',
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            var option = '';
+
+                            response.data.forEach(function(x){
+                                option += `<option value="${x['paymentname']}">${x['paymentname']}</option>`;
+                            })
+                            $("#inputnmUpdatetrxntype,#inputnmTrxntype").html(option);
+                        }
+                    }
+                })
+            }
+
             $('#inputnmRfpno').keypress(function(e){    
     
                 var charCode = (e.which) ? e.which : event.keyCode    
@@ -153,7 +209,7 @@
                                         <td style="text-align: right; font-weight: bolder;">${x['amount']}</td>
                                         <td>${x['description']}</td>
                                         <td style="zoom: 70%; text-align: center;">
-                                            <button id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
+                                            <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" data-payee="${x['payee']}" data-payment="${x['payment']}" data-amount="${x['amount']}" data-description="${x['description']}" id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
                                             <button class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
                                             <button class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
                                         </td>
@@ -168,6 +224,12 @@
 
             $(document).on("click","#btnEdit",function(e){
                 e.preventDefault();
+                $("#spanRfpno").text($(this).attr("data-rfpno"));
+                $("#inputnmReceivingid").val($(this).attr("data-reid"));
+                $("#inputnmUpdatepayee").val($(this).attr("data-payee"));
+                $("#inputnmUpdatetrxntype").val($(this).attr("data-payment"));
+                $("#inputnmUpdateamount").val($(this).attr("data-amount"));
+                $("#inputnmUpdatedescription").val($(this).attr("data-description"));
                 $("#openModal").click();
             })
 
@@ -216,6 +278,29 @@
                             $(".toast-body").text("No Records found.");
                             $("#btnToast").click();
                             viewReceived_v();
+                        }
+                    }
+                })
+            }
+
+            $("#btnUpdate").click(function(e){
+                e.preventDefault();
+                updateData_v();
+            })
+
+            function updateData_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateData_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Updated.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                            $("#inputnmSearch").val("").focus();
                         }
                     }
                 })
