@@ -36,14 +36,14 @@
                     <div class="row">
                         <div class="col-md-8"><h3>Repository</h3></div>
                         <div class="col-md-4">
-                            <form id="frmSearch">
-                                <div class="input-group">
+                            <div class="input-group">
+                                <form id="frmSearch">
                                     <input type="text" name="txtnmSearch" id="inputnmSearch" class="form-control form-control-sm" autocomplete="off" placeholder="Search">
                                     <button class="btn btn-warning btn-sm" style="height: 28.7pt;" id="btnSearch">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
                                     </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; border-radius: 0px; overflow-y: scroll; height: 590px; scrollbar-width: thin; scrollbar-color: #fadba2 #c9a377; border-color: transparent;">
