@@ -78,11 +78,14 @@
         <div class="modal-content">
         <div class="modal-header" style="border-bottom: transparent;">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: red;" id="spanRfpno"></span></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
         </div>
         <div class="modal-body">
             <form id="frmUpdate">
                 <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
+                <input type="text" id="inputnmUpdaterfpno" name="txtnmUpdaterfpno" hidden>
+                <input type="text" id="inputnmUpdatereceiveremark" name="txtnmUpdatereceiveremark" value="Open" hidden>
+                <input type="text" id="inputnmUpdatereceivestatus" name="txtnmUpdatereceivestatus" value="Process" hidden>
                 <label for="inputnmUpdatepayee">Payee</label>
                 <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
                     <option></option>
@@ -98,7 +101,7 @@
             </form>
         </div>
         <div class="modal-footer" style="border-top: transparent;">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-danger" id="btnRemove">Delete</button>
             <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
         </div>
         </div>
@@ -210,8 +213,8 @@
                                         <td>${x['description']}</td>
                                         <td style="zoom: 70%; text-align: center;">
                                             <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" data-payee="${x['payee']}" data-payment="${x['payment']}" data-amount="${x['amount']}" data-description="${x['description']}" id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
-                                            <button class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
-                                            <button class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
+                                            <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" id="btnRevert" class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
+                                            <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" id="btnProcess" class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
                                         </td>
                                     </tr>
                                 `;
@@ -225,6 +228,7 @@
             $(document).on("click","#btnEdit",function(e){
                 e.preventDefault();
                 $("#spanRfpno").text($(this).attr("data-rfpno"));
+                $("#inputnmUpdaterfpno").val($(this).attr("data-rfpno"));
                 $("#inputnmReceivingid").val($(this).attr("data-reid"));
                 $("#inputnmUpdatepayee").val($(this).attr("data-payee"));
                 $("#inputnmUpdatetrxntype").val($(this).attr("data-payment"));
@@ -261,15 +265,17 @@
                             response.data.forEach(function(x){
                                 tbody += `
                                     <tr>
+                                        <tr>
                                         <td style="font-weight: bolder;">${x['rfpno']}</td>
                                         <td style="text-transform: uppercase;">${x['payee']}</td>
                                         <td style="text-align: right; font-weight: bolder;">${x['amount']}</td>
                                         <td>${x['description']}</td>
                                         <td style="zoom: 70%; text-align: center;">
-                                            <button id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
-                                            <button class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
-                                            <button class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
+                                            <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" data-payee="${x['payee']}" data-payment="${x['payment']}" data-amount="${x['amount']}" data-description="${x['description']}" id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
+                                            <button id="btnRevert" class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
+                                            <button id="btnProcess" class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
                                         </td>
+                                    </tr>
                                     </tr>
                                 `;
                             })
@@ -301,6 +307,224 @@
                             $("#btnToast").click();
                             viewReceived_v();
                             $("#inputnmSearch").val("").focus();
+                            $("#btnClosemodal").click();
+                        }
+                    }
+                })
+            }
+
+            function updateCheqdata_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateCheqdata_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            updateCheqdataprop_v();
+                        }else{
+
+                        }
+                    }
+                })
+            }
+
+            function updateCheqdataprop_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateCheqdataprop_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+
+                        }else{
+                            updateNoncheqdata_v();
+                        }
+                    }
+                })
+            }
+
+            function updateNoncheqdata_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateNoncheqdata_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            updateNoncheqdataprop_v();
+                        }else{
+
+                        }
+                    }
+                })
+            }
+
+            function updateNoncheqdataprop_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateNoncheqdataprop_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+
+                        }else{
+
+                        }
+                    }
+                })
+            }
+
+            $(document).on("click","#btnRevert",function(e){
+                e.preventDefault();
+                $("#inputnmUpdaterfpno").val($(this).attr("data-rfpno"));
+                $("#inputnmReceivingid").val($(this).attr("data-reid"));
+                updateRemark_v();
+            })
+
+            function updateRemark_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateRemark_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Updated.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                        }else{
+                            $(".toast-body").text("Cannot revert, there is no transaction recorded.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                        }
+                    }
+                })
+            }
+
+            function removeCheqdata_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/removeCheqdata_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            removeCheqdataprop_v();
+                        }else{
+
+                        }
+                    }
+                })
+            }
+
+            function removeCheqdataprop_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/removeCheqdataprop_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            
+                        }else{
+                            removeNoncheqdata_v();
+                        }
+                    }
+                })
+            }
+
+            function removeNoncheqdata_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/removeNoncheqdata_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            removeNoncheqdataprop_v();
+                        }else{
+                            
+                        }
+                    }
+                })
+            }
+
+            function removeNoncheqdataprop_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/removeNoncheqdataprop_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            
+                        }else{
+                            
+                        }
+                    }
+                })
+            }
+
+            $(document).on("click","#btnProcess",function(e){
+                e.preventDefault();
+                $("#inputnmUpdaterfpno").val($(this).attr("data-rfpno"));
+                updateStatus_v();
+            })
+
+            function updateStatus_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/updateStatus_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Processed.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                        }else{
+                            $(".toast-body").text("Request already processed.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                        }
+                    }
+                })
+            }
+
+            $("#btnRemove").click(function(e){
+                e.preventDefault();
+                removeRequest_v();
+            })
+
+            function removeRequest_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/removeRequest_c',
+                    data:$("#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Successfully deleted the request.");
+                            $("#btnToast").click();
+                            viewReceived_v();
+                            $("#btnClosemodal").click();
+                            removeCheqdata_v();
+                        }else{
+
                         }
                     }
                 })

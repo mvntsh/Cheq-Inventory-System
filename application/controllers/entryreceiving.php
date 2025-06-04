@@ -80,5 +80,171 @@
             }
             echo json_encode($data);
         }
+
+        function updateCheqdata_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $values = array(
+                "payee" => $this->input->post("txtnmUpdatepayee")
+            );
+
+            $response = $this->receiving_m->updateCheqdata_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateCheqdataprop_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $values = array(
+                "payee" => $this->input->post("txtnmUpdatepayee")
+            );
+
+            $response = $this->receiving_m->updateCheqdataprop_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateNoncheqdata_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $values = array(
+                "payee" => $this->input->post("txtnmUpdatepayee")
+            );
+
+            $response = $this->receiving_m->updateNoncheqdata_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateNoncheqdataprop_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $values = array(
+                "payee" => $this->input->post("txtnmUpdatepayee")
+            );
+
+            $response = $this->receiving_m->updateNoncheqdataprop_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateRemark_c(){
+            $data["success"] = false;
+
+            $re_id = $this->input->post("txtnmReceivingid");
+            $values = array(
+                "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark")
+            );
+
+            $response = $this->receiving_m->updateRemark_m($re_id,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeCheqdata_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $response = $this->receiving_m->removeCheqdata_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeCheqdataprop_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $response = $this->receiving_m->removeCheqdataprop_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeNoncheqdata_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $response = $this->receiving_m->removeNoncheqdata_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeNoncheqdataprop_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmUpdaterfpno");
+
+            $response = $this->receiving_m->removeNoncheqdataprop_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateStatus_c(){
+            $data["success"] = false;
+
+            $re_id = $this->input->post("txtnmReceivingid");
+
+            $values = array(
+                "receivestatus" => $this->input->post("txtnmUpdatereceivestatus")
+            );
+
+            $response = $this->receiving_m->updateStatus_m($re_id,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeRequest_c(){
+            $data["success"] = false;
+
+            $re_id = $this->input->post("txtnmReceivingid");
+
+            $response = $this->receiving_m->removeRequest_m($re_id);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>
