@@ -246,5 +246,53 @@
             }
             echo json_encode($data);
         }
+
+        function insertData_c(){
+            $data["success"] = false;
+
+            $values = array(
+                "rfpno" => $this->input->post("txtnmRfpno"),
+                "payee" => $this->input->post("txtnmPayee"),
+                "division" => $this->input->post("txtnmDivision"),
+                "datareceived" => $this->input->post("txtnmReceivedate"),
+                "payment" => $this->input->post("txtnmTrxntype"),
+                "amount" => $this->input->post("txtnmAmount"),
+                "description" => $this->input->post("txtnmDescription"),
+                "receivestatus" => $this->input->post("txtnmUpdatereceivestatus"),
+                "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark"),
+                "dummyamount" => $this->input->post("txtnmAmount")
+            );
+
+            $response = $this->receiving_m->insertData_m($values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function viewDivision_c(){
+            $data["success"] = false;
+
+            $data["data"] = $this->receiving_m->viewDivision_m();
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function existingRequest_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+
+            $response = $this->receiving_m->existingRequest_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>

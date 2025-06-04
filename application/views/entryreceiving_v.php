@@ -111,6 +111,7 @@
         $(document).ready(function(){
             viewPayee_v();
             viewTrxntype_v();
+            viewDivision_v();
             function viewPayee_v(){
                 $.ajax({
                     type:'ajax',
@@ -144,6 +145,25 @@
                                 option += `<option value="${x['paymentname']}">${x['paymentname']}</option>`;
                             })
                             $("#inputnmUpdatetrxntype,#inputnmTrxntype").html(option);
+                        }
+                    }
+                })
+            }
+
+            function viewDivision_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/viewDivision_c',
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            var option = '';
+
+                            response.data.forEach(function(x){
+                                option += `<option value="${x['division_name']}">${x['division_name']}</option>`;
+                            })
+                            $("#inputnmDivision").html(option);
                         }
                     }
                 })
@@ -525,6 +545,69 @@
                             removeCheqdata_v();
                         }else{
 
+                        }
+                    }
+                })
+            }
+
+            $("#btnInsert").click(function(e){
+                e.preventDefault();
+                emptyField();
+            })
+
+            function emptyField(){
+                var inputnmRfpno = $("#inputnmRfpno").val();
+                var inputnmReceivedate = $("#inputnmReceivedate").val();
+                var inputnmAmount = $("#inputnmAmount").val();
+                var inputnmDescription = $("#inputnmDescription").val();
+
+                if(inputnmRfpno==("")>0){
+                    $(".toast-body").text("Please input RFP No.");
+                    $("#btnToast").click();
+                }else if(inputnmReceivedate==("")>0){
+                    $(".toast-body").text("Please pick a date.");
+                    $("#btnToast").click();
+                }else if(inputnmAmount==("")>0){
+                    $(".toast-body").text("Please entry an amount.");
+                    $("#btnToast").click();
+                }else if(inputnmDescription==("")>0){
+                    $(".toast-body").text("Please input description.");
+                    $("#btnToast").click();
+                }else{
+                    existingRequest_v();
+                }
+            }
+
+            function existingRequest_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/existingRequest_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Request number is already exist.");
+                            $("#btnToast").click();
+                        }else{
+                            insertData_v();
+                        }
+                    }
+                })
+            }
+
+            function insertData_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryreceiving/insertData_c',
+                    data:$("#frmInputs,#frmUpdate").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Saved.");
+                            $("#btnToast").click();
+                            viewReceived_v();
                         }
                     }
                 })

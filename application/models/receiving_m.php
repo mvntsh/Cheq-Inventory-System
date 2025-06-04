@@ -175,5 +175,35 @@
                 return false;
             }
         }
+
+        function insertData_m($values){
+            $this->db->insert("tblreceivedentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function viewDivision_m(){
+            $query = $this->db->query("SELECT * FROM `tbldivision` WHERE division_status='ACTIVE' ORDER BY division_name ASC;")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function existingRequest_m($rfpno){
+            $query = $this->db->query("SELECT rfpno FROM `tblreceivedentry` WHERE rfpno='$rfpno'")->result_array();
+
+            if($query){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 ?>
