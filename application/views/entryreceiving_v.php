@@ -76,34 +76,34 @@
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header" style="border-bottom: transparent;">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: red;" id="spanRfpno"></span></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
-        </div>
-        <div class="modal-body">
-            <form id="frmUpdate">
-                <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
-                <input type="text" id="inputnmUpdaterfpno" name="txtnmUpdaterfpno" hidden>
-                <input type="text" id="inputnmUpdatereceiveremark" name="txtnmUpdatereceiveremark" value="Open" hidden>
-                <input type="text" id="inputnmUpdatereceivestatus" name="txtnmUpdatereceivestatus" value="Process" hidden>
-                <label for="inputnmUpdatepayee">Payee</label>
-                <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
-                    <option></option>
-                </select>
-                <label for="inputnmUpdatetrxntype">Transaction Type</label>
-                <select name="txtnmUpdatetrxntype" id="inputnmUpdatetrxntype" class="form-control">
-                    <option></option>
-                </select>
-                <label for="inputnmUpdateamount">Amount</label>
-                <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control form-control-sm">
-                <label for="inputnmUpdatedescription">Description</label>
-                <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
-            </form>
-        </div>
-        <div class="modal-footer" style="border-top: transparent;">
-            <button type="button" class="btn btn-danger" id="btnRemove">Delete</button>
-            <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
-        </div>
+            <div class="modal-header" style="border-bottom: transparent;">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: red;" id="spanRfpno"></span></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmUpdate">
+                    <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
+                    <input type="text" id="inputnmUpdaterfpno" name="txtnmUpdaterfpno" hidden>
+                    <input type="text" id="inputnmUpdatereceiveremark" name="txtnmUpdatereceiveremark" value="Open" hidden>
+                    <input type="text" id="inputnmUpdatereceivestatus" name="txtnmUpdatereceivestatus" value="Process" hidden>
+                    <label for="inputnmUpdatepayee">Payee</label>
+                    <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
+                        <option></option>
+                    </select>
+                    <label for="inputnmUpdatetrxntype">Transaction Type</label>
+                    <select name="txtnmUpdatetrxntype" id="inputnmUpdatetrxntype" class="form-control">
+                        <option></option>
+                    </select>
+                    <label for="inputnmUpdateamount">Amount</label>
+                    <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control form-control-sm">
+                    <label for="inputnmUpdatedescription">Description</label>
+                    <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: transparent;">
+                <button type="button" class="btn btn-danger" id="btnRemove">Delete</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
+            </div>
         </div>
     </div>
     </div>
