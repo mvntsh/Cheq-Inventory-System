@@ -11,6 +11,7 @@
             $data["Title"] = "Receiving Entry";
 
             $this->load->view("common/aheader",$data);
+            $this->load->view("common/anavbar");
             $this->load->view("common/bcss");
             $this->load->view("entryreceiving_v");
             $this->load->view("common/cfooter");

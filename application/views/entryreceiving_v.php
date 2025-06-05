@@ -1,6 +1,6 @@
-    <div class="row" style="margin: .3em; cursor:default;">
+    <div class="row" style="margin: .3em; cursor:default; zoom: 85%;">
         <div class="col-md-4">
-            <div class="card" style="background-color: #e8fae1; border-radius: 0px; border-color: transparent; zoom: 90%; box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+            <div class="card" style="background-color: #454443; border-radius: 0px; border-color: transparent; zoom: 90%; box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
                 <div class="card-body">
                     <h3>Entry</h3>
                     <form id="frmInputs">
@@ -26,14 +26,14 @@
                         <textarea name="txtnmDescription" id="inputnmDescription" class="form-control" style="height: 60px;"></textarea>
                     </form>
                     <div class="d-grid">
-                        <button id="btnInsert" class="btn btn-success" style="border-radius: 0px;">Save Data</button>
+                        <button id="btnInsert" class="btn btn-dark" style="border-radius: 0px;">Save Data</button>
                     </div>
                     
                 </div>
             </div>
         </div>
         <div class="col-md-8">
-            <div class="card" style="background-color: #faf8d9; border-color: transparent; border-radius: 0px; box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+            <div class="card" style="background-color: #454443; border-color: #454443; border-radius: 0px; box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8"><h3>Repository</h3></div>
@@ -48,15 +48,15 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; border-radius: 0px; overflow-y: scroll; height: 590px; scrollbar-width: thin; scrollbar-color: #fadba2 #c9a377; border-color: transparent;">
-                        <table class="table table-hover table-striped" style="width: 100%; zoom: 80%; background-color: transparent;" id="tblReceived">
+                    <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; border-radius: 0px; overflow-y: scroll; height: 590px; scrollbar-width: thin; scrollbar-color: #8c8c8c #454443; border-color: #8c8c8c;">
+                        <table class="table table-hover table-striped table-dark" style="width: 100%; zoom: 90%; background-color: #454443;" id="tblReceived">
                             <thead style="height: 2em; position: sticky; top: 0;">
                                 <tr style="text-align: center; text-transform: uppercase; font-size: 10pt; letter-spacing: 2px;">
-                                    <th style="width: 10%; background-color: #fadba2;">Rfp no.</th>
-                                    <th style="width: 20%; background-color: #fadba2;">Payee</th>
-                                    <th style="width: 15%; background-color: #fadba2;">Amount</th>
-                                    <th style="width: 25%; background-color: #fadba2;">Description</th>
-                                    <th style="width: 20%; background-color: #fadba2;">Action</th>
+                                    <th style="width: 10%; background-color: #8c8c8c;">Rfp no.</th>
+                                    <th style="width: 20%; background-color: #8c8c8c;">Payee</th>
+                                    <th style="width: 15%; background-color: #8c8c8c;">Amount</th>
+                                    <th style="width: 25%; background-color: #8c8c8c;">Description</th>
+                                    <th style="width: 20%; background-color: #8c8c8c;">Action</th>
                                 </tr>
                             </thead>
                             <tbody style="font-size: 8pt;"></tbody>
@@ -74,10 +74,10 @@
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog" style="background-color: #454443;">
+        <div class="modal-content" style="background-color: #454443; border-color: transparent;">
             <div class="modal-header" style="border-bottom: transparent;">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: red;" id="spanRfpno"></span></h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: #baae09;" id="spanRfpno"></span></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
             </div>
             <div class="modal-body">
@@ -95,7 +95,7 @@
                         <option></option>
                     </select>
                     <label for="inputnmUpdateamount">Amount</label>
-                    <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control form-control-sm">
+                    <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control">
                     <label for="inputnmUpdatedescription">Description</label>
                     <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
                 </form>
@@ -608,6 +608,8 @@
                             $(".toast-body").text("Saved.");
                             $("#btnToast").click();
                             viewReceived_v();
+                            $("#inputnmRfpno,#inputnmReceivedate,#inputnmAmount,#inputnmDescription").val("");
+                            $("#inputnmRfpno").focus();
                         }
                     }
                 })
