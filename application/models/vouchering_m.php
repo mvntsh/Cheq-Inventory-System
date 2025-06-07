@@ -33,6 +33,26 @@
                 return array();
             }
         }
+
+        function saveCheq_m($values){
+            $this->db->insert("tblcheckentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function showStaled_m($checkdate){
+            $query = $this->db->query("SELECT DATE_ADD('$checkdate', INTERVAL 6 MONTH) as dateStaled")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
     }
     
 ?>

@@ -51,5 +51,54 @@
             }
             echo json_encode($data);
         }
+
+        function saveCheq_c(){
+            $data["success"] = false;
+
+            $values = array(
+                "bankname" => $this->input->post(""),
+                "accountno" => $this->input->post("txtnmAccountno"),
+                "payee" => $this->input->post("txtnmPayee"),
+                "division" => $this->input->post(""),
+                "checkno" => $this->input->post("txtnmCheckno"),
+                "rfpno" => $this->input->post("txtnmRfpno"),
+                "daterequest" => $this->input->post("txtnmReceivedate"),
+                "payment" => $this->input->post("txtnmTransactiontype"),
+                "availableamount" => $this->input->post("txtnmAvailableamount"),
+                "checkdate" => $this->input->post("txtnmCheckdate"),
+                "checkvoucherno" => $this->input->post("txtnmVoucherno"),
+                "voucherdate" => $this->input->post("txtnmVoucherdate"),
+                "amount" => $this->input->post("txtnmAmount"),
+                "netofvat" => $this->input->post(""),
+                "taxable" => $this->input->post(""),
+                "taxamount" => $this->input->post(""),
+                "checkamount" => $this->input->post("txtnmAmount"),
+                "status" => $this->input->post(""),
+                "checkdescription" => $this->input->post("txtnmDescription"),
+                "date" => $this->input->post(""),
+                "datestaled" => $this->input->post("txtnmDatestaled"),
+                "availablecheck" => $this->input->post("")
+            );
+
+            $response = $this->vouchering_m->saveCheq_m($values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function showStaled_c(){
+            $data["success"] = false;
+
+            $checkdate = $this->input->post("txtnmCheckdate");
+
+            $data["data"] = $this->vouchering_m->showStaled_m($checkdate);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>
