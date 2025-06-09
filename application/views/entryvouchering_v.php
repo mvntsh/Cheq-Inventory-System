@@ -97,6 +97,45 @@
         </div>
     </div>
 </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" id="openUpdatemodal" hidden></button>
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom-color: transparent;">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Status.</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="frmChequpdate">
+            <label for="inputnmUpdatecheckno">Cheq No.</label>
+            <input type="text" name="txtnmUpdatecheckno" class="form-control" id="inputnmUpdatecheckno">
+            <label for="inputnmUpdatepayee">Payee</label>
+            <input type="text" name="txtnmUpdatepayee" class="form-control" id="inputnmUpdatepayee">
+            <label for="inputnmUpdatecheckdate">Cheq date</label>
+            <input type="date" name="txtnmUpdatecheckdate" class="form-control" id="inputnmUpdatecheckdate">
+            <label for="inputnmUpdateamount">Cheq amount</label>
+            <input type="text" name="txtnmUpdateamount" class="form-control" id="inputnmUpdateamount">
+            <label for="inputnmUpdatedescription">Cheq description</label>
+            <textarea name="txtnmUpdatedescription" class="form-control" id="inputnmUpdatedescription" style="height: 70pt;"></textarea>
+            <label for="inputnmUpdatestatus">Cheq Status</label>
+            <select name="txtnmUpdatestatus" class="form-control" id="inputnmUpdatestatus">
+                <option value="RELEASED">Released</option>
+                <option value="CLEARED">Cleared</option>
+                <option value="CANCELLED">Cancelled</option>
+            </select>
+            <label for="inputnmUpdatedate">Date</label>
+            <input type="date" name="txtnmUpdatedate" class="form-control" id="inputnmUpdatedate">
+        </form>
+      </div>
+      <div class="modal-footer" style="border-top-color: transparent;">
+        <button type="button" class="btn btn-primary" id="btnUpdate">Update.</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
         viewCheqdata_v();
@@ -122,7 +161,7 @@
                                     <td>${x['amount']}</td>
                                     <td>${x['checkdescription']}</td>
                                     <td>
-                                        <button class="btn btn-warning" id="btnEdit">
+                                        <button data-cheqno="${x['checkno']}" data-payee="${x['payee']}" data-cheqdate="${x['checkdate']}" data-amount="${x['amount']}" data-checkdescription="${x['checkdescription']}" data-cheqstatus="${x['status']}" class="btn btn-warning" id="btnEdit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg>
                                         </button>
                                         <button class="btn btn-primary" id="btnPrint">
@@ -386,7 +425,34 @@
 
         $(document).on("click","#btnEdit",function(e){
             e.preventDefault();
-            alert("Hello world.")
+            $("#inputnmUpdatecheckno").val($(this).attr("data-cheqno"));
+            $("#inputnmUpdatepayee").val($(this).attr("data-payee"));
+            $("#inputnmUpdatecheckdate").val($(this).attr("data-cheqdate"));
+            $("#inputnmUpdateamount").val($(this).attr("data-amount"));
+            $("#inputnmUpdatedescription").val($(this).attr("data-checkdescription"));
+            $("#openUpdatemodal").click();
         })
+
+        $("#btnUpdate").click(function(e){
+            e.preventDefault();
+            checkExistingstatus_v();
+        })
+
+        function checkExistingstatus_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/checkExistingstatus_c',
+                data:$("#frmChequpdate").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+
+                    }else{
+                        alert("Proceed.");
+                    }
+                }
+            })
+        }
     })
 </script>

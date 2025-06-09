@@ -610,6 +610,7 @@
                             viewReceived_v();
                             $("#inputnmRfpno,#inputnmReceivedate,#inputnmAmount,#inputnmDescription").val("");
                             $("#inputnmRfpno").focus();
+                            //Lacking close modal.
                         }
                     }
                 })

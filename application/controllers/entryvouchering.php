@@ -152,5 +152,19 @@
             }
             echo json_encode($data);
         }
+
+        function checkExistingstatus_c(){
+            $data["success"] = false;
+
+            $checkno = $this->input->post("txtnmUpdatecheckno");
+            $status = $this->input->post("txtnmUpdatestatus");
+
+            $response = $this->vouchering_m->checkExistingstatus_m($checkno,$status);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>

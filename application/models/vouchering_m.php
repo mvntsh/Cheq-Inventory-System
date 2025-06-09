@@ -5,7 +5,7 @@
         }
 
         function viewCheqdata_m(){
-            $query = $this->db->query("SELECT * FROM `tblcheckentry` ORDER BY ce_id DESC LIMIT 100;")->result_array();
+            $query = $this->db->query("SELECT * FROM `tblcheckentry` WHERE status='On-hand' ORDER BY ce_id DESC LIMIT 100;")->result_array();
 
             if(count($query)>0){
                 return $query;
@@ -91,6 +91,16 @@
                 return true; 
             }else{
                 return false;
+            }
+        }
+
+        function checkExistingstatus_m($checkno,$status){
+            $query = $this->db->query("SELECT * FROM `tblcheckentry` WHERE checkno='$checkno' AND status='$status'")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
             }
         }
     }
