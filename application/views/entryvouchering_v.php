@@ -30,7 +30,7 @@
                     <td><input type="text" name="txtnmPayee" class="form-control form-control-lg" readonly id="inputnmPayee"></td>
                     <td><input type="text" name="txtnmTransactiontype" class="form-control form-control-lg" readonly id="inputnmTransactiontype"></td>
                     <td><input type="text" name="txtnmAvailableamount" class="form-control form-control-lg" readonly id="inputnmAvailableamount"></td>
-                    <td><input type="text" name="txtnmRequeststatus" class="form-control form-control-lg" readonly id="inputnmRequeststatus"></td>
+                    <td><input type="text" name="txtnmDivision" class="form-control form-control-lg" readonly id="inputnmDivision"></td>
                     <td><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
                     <td><input type="date" name="txtnmReceivedate" class="form-control form-control-lg" readonly id="inputnmRequestdate"></td>
                 </tr>
@@ -51,20 +51,31 @@
                         <select name="txtnmAccountno" id="inputnmAccountno" class="form-control form-control-lg">
                             <option value="1301-0327-29">1301-0327-29</option>
                         </select>
+                        <div id="divBankname" hidden></div>
                     </td>
                     <td><input type="date" name="txtnmCheckdate" class="form-control form-control-lg" id="inputnmCheckdate"><div id="divCheckdate" hidden></div></td>
                     <td><input type="text" name="txtnmCheckno" class="form-control form-control-lg" id="inputnmCheckno"></td>
                     <td><input type="date" name="txtnmVoucherdate" class="form-control form-control-lg" id="inputnmVoucherdate"></td>
                     <td><input type="text" name="txtnmVoucherno" class="form-control form-control-lg" id="inputnmVoucherno"></td>
                     <td><input type="text" name="txtnmAmount" class="form-control form-control-lg" id="inputnmAmount"></td>
-                    <td><input type="text" name="txtnmDescription" class="form-control form-control-lg" id="inputnmDescription"></td>
+                    <td>
+                        <input type="text" name="txtnmDescription" class="form-control form-control-lg" id="inputnmDescription">
+                        <div hidden>
+                            <input type="text" name="txtnmNOV" value="0.00">
+                            <input type="text" name="txtnmTax" value="0.00">
+                            <input type="text" name="txtnmTaxamount" value="0.00">
+                            <input type="text" name="txtnmStatus" value="On-hand">
+                            <input type="text" name="txtnmDate" value="0000-00-00">
+                            <input type="text" name="txtnmCount" value="1">
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </form>
     <div class="card" style="zoom: 90%; border-radius: 0px; margin-top: 1em; overflow-y: scroll; height: 590px; scrollbar-width: thin; scrollbar-color: #8c8c8c #454443; border-color: #8c8c8c;">
         <table style="width: 100%;" class="table table-hover table-striped table-dark" id="tblCheqdata">
-            <thead style="position: sticky; top:0;">
+            <thead style="position: sticky; top:0; text-align: center;">
                 <tr>
                     <td style="background-color: #8c8c8c;">Check No.</td>
                     <td style="background-color: #8c8c8c;">Payee</td>
@@ -73,16 +84,14 @@
                     <td style="background-color: #8c8c8c;">Voucher Date</td>
                     <td style="background-color: #8c8c8c;">Amount</td>
                     <td style="background-color: #8c8c8c;">Description</td>
+                    <td style="background-color: #8c8c8c;">Action</td>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
     <div class="row" style="margin-top: 1em;">
-        <div class="col-md-8"></div>
-        <div class="col-md-2 d-grid">
-            <button class="btn btn-danger">Edit.</button>
-        </div>
+        <div class="col-md-10"></div>
         <div class="col-md-2 d-grid">
             <button class="btn btn-dark" style="height: 80pt;" id="btnSave">Save.</button>
         </div>
@@ -112,6 +121,17 @@
                                     <td>${x['voucherdate']}</td>
                                     <td>${x['amount']}</td>
                                     <td>${x['checkdescription']}</td>
+                                    <td>
+                                        <button class="btn btn-warning" id="btnEdit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg>
+                                        </button>
+                                        <button class="btn btn-primary" id="btnPrint">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/></svg>
+                                        </button>
+                                        <button class="btn btn-secondary" id="btnRevert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
+                                        </button>
+                                    </td>
                                 </tr>
                             `;
                         })
@@ -139,6 +159,47 @@
                 }
             })
         }
+
+        $('#inputnmCheckno,#inputnmVoucherno').keypress(function(e){    
+    
+                var charCode = (e.which) ? e.which : event.keyCode    
+                if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;                        
+
+            });
+
+        $('#inputnmAmount').keypress(function(e){    
+        
+            var charCode = (e.which) ? e.which : event.keyCode    
+            if (String.fromCharCode(charCode).match(/[^0-9,.]/g))
+            return false;                        
+
+        });
+
+        $('#inputnmAmount').keyup(function(event) {
+
+            $(this).val(function(index, value) {
+                value = value.replace(/,/g,'');
+                return numberWithCommas(value);
+            });
+        });
+
+        function numberWithCommas(x){
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
+        $('#inputnmAmount').keypress(function(event) {
+            if(event.which == 46
+            && $(this).val().indexOf('.') != -1) {
+                event.preventDefault();
+            } // prevent if already decimal point
+            
+            if(event.which != 46 && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            } // prevent if not number/dot
+        });
     })
 </script>
 <script type="text/javascript">
@@ -161,7 +222,7 @@
 
                         response.data.forEach(function(x){
                             div += `
-                                <button id="btnGetrequestdata" data-payee="${x['payee']}" data-payment="${x['payment']}" data-availableamount="${x['dummyamount']}" data-receivestatus="${x['receivestatus']}" data-receiveremark="${x['receiveremarks']}" data-datareceived="${x['datareceived']}" data-description="${x['description']}"</button>
+                                <button id="btnGetrequestdata" data-payee="${x['payee']}" data-payment="${x['payment']}" data-division="${x['division']}" data-availableamount="${x['dummyamount']}" data-receivestatus="${x['receivestatus']}" data-receiveremark="${x['receiveremarks']}" data-datareceived="${x['datareceived']}" data-description="${x['description']}"</button>
                             `;
                         })
                         $("#divGetrfdata").html(div);
@@ -175,8 +236,8 @@
             e.preventDefault();
             $("#inputnmPayee").val($(this).attr("data-payee"));
             $("#inputnmTransactiontype").val($(this).attr("data-payment"));
-            $("#inputnmAvailableamount").val($(this).attr("data-availableamount"));
-            $("#inputnmRequeststatus").val($(this).attr("data-receivestatus"));
+            $("#inputnmAvailableamount,#inputnmAmount").val($(this).attr("data-availableamount"));
+            $("#inputnmDivision").val($(this).attr("data-division"));
             $("#inputnmRequestremark").val($(this).attr("data-receiveremark"));
             $("#inputnmRequestdate").val($(this).attr("data-datareceived"));
             $("#inputnmDescription").val($(this).attr("data-description"));
@@ -185,8 +246,47 @@
 
         $("#btnSave").click(function(e){
             e.preventDefault();
-            showStaled_v();
+            checkRemark_v();
         })
+
+        function checkRemark_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/checkRemark_c',
+                data:$("#frmInputs").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+                        alert("Request remark is closed.");
+                    }else{
+                        emptyField();
+                    }
+                }
+            })
+        }
+
+        function emptyField(){
+            var inputnmCheckdate = $("#inputnmCheckdate").val();
+            var inputnmCheckno = $("#inputnmCheckno").val();
+            var inputnmVoucherdate = $("#inputnmVoucherdate").val();
+            var inputnmVoucherno = $("#inputnmVoucherno").val();
+            var inputnmAmount = $("#inputnmAmount").val();
+
+            if(inputnmCheckdate==("")>0){
+                alert("Select Check Date");
+            }else if(inputnmCheckno==("")>0){
+                alert("Input Check No");
+            }else if(inputnmVoucherdate==("")>0){
+                alert("Select Voucher Date");
+            }else if(inputnmVoucherno==("")>0){
+                alert("Input Voucher No");
+            }else if(inputnmAmount==("")>0){
+                alert("Input Amount");
+            }else{
+                showStaled_v();
+            }
+        }
 
         function showStaled_v(){
             $.ajax({
@@ -205,10 +305,88 @@
                             `;
                         })
                         $("#divCheckdate").html(div);
-                        alert("Success");
+                        selectBank_v();
                     }
                 }
             })
         }
+
+        function selectBank_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/selectBank_c',
+                data:$("#inputnmAccountno").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+                        var div = '';
+
+                        response.data.forEach(function(x){
+                            div += `
+                                <input type="text" name="txtnmBankname" value="${x['bankname']}" id="inputnmBankname">
+                            `;
+                        })
+                        $("#divBankname").html(div);
+                        cheqnoExist_v();
+                    }
+                }
+            }) 
+        }
+
+        function cheqnoExist_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/cheqnoExist_c',
+                data:$("#inputnmCheckno").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+                        alert("Check no. exist.");
+                    }else{
+                        vouchernoExist_v();
+                    }
+                }
+            })
+        }
+
+        function vouchernoExist_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/vouchernoExist_c',
+                data:$("#inputnmVoucherno").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+                        alert("Check Voucher no. exist.");
+                    }else{
+                        saveCheq_v();
+                    }
+                }
+            })
+        }
+
+        function saveCheq_v(){
+            $.ajax({
+                type:'ajax',
+                method:'POST',
+                url:'entryvouchering/saveCheq_c',
+                data:$("#frmInputs").serialize(),
+                dataType:'json',
+                success:function(response){
+                    if(response.success){
+                        alert("Saved.");
+                        location.reload();
+                    }
+                }
+            })
+        }
+
+        $(document).on("click","#btnEdit",function(e){
+            e.preventDefault();
+            alert("Hello world.")
+        })
     })
 </script>

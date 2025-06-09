@@ -5,7 +5,7 @@
         }
 
         function viewCheqdata_m(){
-            $query = $this->db->query("SELECT * FROM `tblcheckentry` ORDER BY checkno DESC LIMIT 100;")->result_array();
+            $query = $this->db->query("SELECT * FROM `tblcheckentry` ORDER BY ce_id DESC LIMIT 100;")->result_array();
 
             if(count($query)>0){
                 return $query;
@@ -51,6 +51,46 @@
                 return $query;
             }else{
                 return array();
+            }
+        }
+
+        function selectBank_m($accountno){
+            $query = $this->db->query("SELECT * FROM `tblaccounts` WHERE accountno='$accountno' LIMIT 1")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function cheqnoExist_m($checkno){
+            $query = $this->db->query("SELECT checkno FROM `tblcheckentry` WHERE checkno='$checkno'")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function vouchernoExist_m($checkvoucherno){
+            $query = $this->db->query("SELECT checkvoucherno FROM `tblcheckentry` WHERE checkvoucherno='$checkvoucherno'")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function checkRemark_m($rfpno){
+            $query = $this->db->query("SELECT rfpno,receiveremarks FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND receiveremarks='Closed'")->result_array();
+
+            if($query){
+                return true; 
+            }else{
+                return false;
             }
         }
     }

@@ -56,10 +56,10 @@
             $data["success"] = false;
 
             $values = array(
-                "bankname" => $this->input->post(""),
+                "bankname" => $this->input->post("txtnmBankname"),
                 "accountno" => $this->input->post("txtnmAccountno"),
                 "payee" => $this->input->post("txtnmPayee"),
-                "division" => $this->input->post(""),
+                "division" => $this->input->post("txtnmDivision"),
                 "checkno" => $this->input->post("txtnmCheckno"),
                 "rfpno" => $this->input->post("txtnmRfpno"),
                 "daterequest" => $this->input->post("txtnmReceivedate"),
@@ -69,15 +69,15 @@
                 "checkvoucherno" => $this->input->post("txtnmVoucherno"),
                 "voucherdate" => $this->input->post("txtnmVoucherdate"),
                 "amount" => $this->input->post("txtnmAmount"),
-                "netofvat" => $this->input->post(""),
-                "taxable" => $this->input->post(""),
-                "taxamount" => $this->input->post(""),
+                "netofvat" => $this->input->post("txtnmNOV"),
+                "taxable" => $this->input->post("txtnmTax"),
+                "taxamount" => $this->input->post("txtnmTaxamount"),
                 "checkamount" => $this->input->post("txtnmAmount"),
-                "status" => $this->input->post(""),
+                "status" => $this->input->post("txtnmStatus"),
                 "checkdescription" => $this->input->post("txtnmDescription"),
-                "date" => $this->input->post(""),
+                "date" => $this->input->post("txtnmDate"),
                 "datestaled" => $this->input->post("txtnmDatestaled"),
-                "availablecheck" => $this->input->post("")
+                "availablecheck" => $this->input->post("txtnmCount")
             );
 
             $response = $this->vouchering_m->saveCheq_m($values);
@@ -96,6 +96,58 @@
             $data["data"] = $this->vouchering_m->showStaled_m($checkdate);
 
             if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function selectBank_c(){
+            $data["success"] = false;
+            
+            $accountno = $this->input->post("txtnmAccountno");
+
+            $data["data"] = $this->vouchering_m->selectBank_m($accountno);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function cheqnoExist_c(){
+            $data["success"] = false;
+
+            $checkno = $this->input->post("txtnmCheckno");
+
+            $data["data"] = $this->vouchering_m->cheqnoExist_m($checkno);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function vouchernoExist_c(){
+            $data["success"] = false;
+
+            $checkvoucherno = $this->input->post("txtnmVoucherno");
+
+            $data["data"] = $this->vouchering_m->vouchernoExist_m($checkvoucherno);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function checkRemark_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+
+            $response = $this->vouchering_m->checkRemark_m($rfpno);
+
+            if($response){
                 $data["success"] = true;
             }
             echo json_encode($data);
