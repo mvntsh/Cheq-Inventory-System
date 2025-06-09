@@ -5,7 +5,7 @@
         }
 
         function viewCheqdata_m(){
-            $query = $this->db->query("SELECT * FROM `tblcheckentry` WHERE status='On-hand' ORDER BY ce_id DESC LIMIT 100;")->result_array();
+            $query = $this->db->query("SELECT * FROM `tblcheckentry` ORDER BY ce_id DESC LIMIT 100;")->result_array();
 
             if(count($query)>0){
                 return $query;
@@ -25,7 +25,7 @@
         }
 
         function getRequest_m($rfpno){
-            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno';")->result_array();
+            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND receivestatus='Process';")->result_array();
 
             if(count($query)>0){
                 return $query;
@@ -96,6 +96,27 @@
 
         function checkExistingstatus_m($checkno,$status){
             $query = $this->db->query("SELECT * FROM `tblcheckentry` WHERE checkno='$checkno' AND status='$status'")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function updateStatus_m($checkno,$values){
+            $this->db->where("checkno",$checkno);
+            $this->db->update("tblcheckentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function searchCheqno_m($checkno){
+            $query = $this->db->query("SELECT * FROM `tblcheckentry` WHERE checkno='$checkno'")->result_array();
 
             if(count($query)>0){
                 return $query;

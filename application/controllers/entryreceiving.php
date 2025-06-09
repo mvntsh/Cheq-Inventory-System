@@ -259,7 +259,7 @@
                 "payment" => $this->input->post("txtnmTrxntype"),
                 "amount" => $this->input->post("txtnmAmount"),
                 "description" => $this->input->post("txtnmDescription"),
-                "receivestatus" => $this->input->post("txtnmUpdatereceivestatus"),
+                "receivestatus" => $this->input->post("txtnmReceivestatus"),
                 "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark"),
                 "dummyamount" => $this->input->post("txtnmAmount")
             );

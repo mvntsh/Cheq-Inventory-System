@@ -166,5 +166,36 @@
             }
             echo json_encode($data);
         }
+
+        function updateStatus_c(){
+            $data["success"] = false;
+
+            $checkno = $this->input->post("txtnmUpdatecheckno");
+
+            $values = array(
+                "status" => $this->input->post("txtnmUpdatestatus"),
+                "date" => $this->input->post("txtnmUpdatedate")
+            );
+
+            $response = $this->vouchering_m->updateStatus_m($checkno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function searchCheqno_c(){
+            $data["success"] = false;
+
+            $checkno = $this->input->post("txtnmCheckno");
+
+            $data["data"] = $this->vouchering_m->searchCheqno_m($checkno);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>

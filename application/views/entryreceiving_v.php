@@ -24,6 +24,7 @@
                         <input type="text" id="inputnmAmount" name="txtnmAmount" class="form-control">
                         <label for="inputnmDescription">Description</label>
                         <textarea name="txtnmDescription" id="inputnmDescription" class="form-control" style="height: 60px;"></textarea>
+                        <input type="text" name="txtnmReceivestatus" id="inputnmReceivestatus" value="Unprocess" hidden>
                     </form>
                     <div class="d-grid">
                         <button id="btnInsert" class="btn btn-dark" style="border-radius: 0px;">Save Data</button>
