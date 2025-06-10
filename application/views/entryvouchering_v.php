@@ -11,6 +11,9 @@
             <table style="width: 100%;">
                 <tbody>
                     <tr>
+                        <td colspan="7" height="30pt" style="text-align: center; font-size: 30pt;">Receiving data.</td>
+                    </tr>
+                    <tr>
                         <th>RFP No.</th>
                         <th>Payee</th>
                         <th>Transaction type</th>
@@ -31,11 +34,14 @@
                         <td><input type="text" name="txtnmTransactiontype" class="form-control form-control-lg" readonly id="inputnmTransactiontype"></td>
                         <td><input type="text" name="txtnmAvailableamount" class="form-control form-control-lg" readonly id="inputnmAvailableamount"></td>
                         <td><input type="text" name="txtnmDivision" class="form-control form-control-lg" readonly id="inputnmDivision"></td>
-                        <td><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
+                        <td><input type="text" name="txtnmRequeststatus" id="inputnmRequeststatus" hidden><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
                         <td><input type="date" name="txtnmReceivedate" class="form-control form-control-lg" readonly id="inputnmRequestdate"></td>
                     </tr>
                     <tr>
-                        <td colspan="7" height="20pt;"></td>
+                        <td colspan="7" height="50pt" style="border-left-color: transparent; border-right-color: transparent;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" height="30pt;" style="text-align: center; font-size: 30pt;">Check details.</td>
                     </tr>
                     <tr>
                         <th>Accountno</th>
@@ -77,7 +83,7 @@
                 </tbody>
             </table>
         </form>
-        <div class="card" style="zoom: 90%; border-radius: 0px; margin-top: 1em; overflow-y: scroll; height: 875px; scrollbar-width: thin; scrollbar-color: #8c8c8c #454443; border-color: #8c8c8c;">
+        <div class="card" style="zoom: 90%; border-radius: 0px; margin-top: 1em; overflow-y: scroll; height: 710px; scrollbar-width: thin; scrollbar-color: #8c8c8c #454443; border-color: #8c8c8c;">
             <table style="width: 100%;" class="table table-hover table-striped table-dark" id="tblCheqdata">
                 <thead style="position: sticky; top:0; text-align: center;">
                     <tr>
@@ -173,7 +179,7 @@
                                             <button class="btn btn-primary" id="btnPrint">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/></svg>
                                             </button>
-                                            <button class="btn btn-danger" id="btnRevert">
+                                            <button data-rfpno="${x['rfpno']}" class="btn btn-danger" id="btnRevert">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
                                             </button>
                                         </td>
@@ -227,7 +233,7 @@
                                             <button class="btn btn-primary" id="btnPrint">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/></svg>
                                             </button>
-                                            <button class="btn btn-danger" id="btnRevert">
+                                            <button data-rfpno="${x['rfpno']}" class="btn btn-danger" id="btnRevert">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
                                             </button>
                                         </td>
@@ -375,15 +381,20 @@
                 var inputnmAmount = $("#inputnmAmount").val();
 
                 if(inputnmCheckdate==("")>0){
-                    alert("Select Check Date");
+                    $(".toast-body").text("Select check date.");
+                    $("#btnToast").click();
                 }else if(inputnmCheckno==("")>0){
-                    alert("Input Check No");
+                    $(".toast-body").text("Input check number.");
+                    $("#btnToast").click();
                 }else if(inputnmVoucherdate==("")>0){
-                    alert("Select Voucher Date");
+                    $(".toast-body").text("Select voucher date.");
+                    $("#btnToast").click();
                 }else if(inputnmVoucherno==("")>0){
-                    alert("Input Voucher No");
+                    $(".toast-body").text("Input voucher number.");
+                    $("#btnToast").click();
                 }else if(inputnmAmount==("")>0){
-                    alert("Input Amount");
+                    $(".toast-body").text("Input an amount.");
+                    $("#btnToast").click();
                 }else{
                     showStaled_v();
                 }
@@ -444,7 +455,8 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            alert("Check no. exist.");
+                            $(".toast-body").text("Check number exist.");
+                            $("#btnToast").click();
                         }else{
                             vouchernoExist_v();
                         }
@@ -461,7 +473,8 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            alert("Check Voucher no. exist.");
+                            $(".toast-body").text("Voucher number exist.");
+                            $("#btnToast").click();
                         }else{
                             saveCheq_v();
                         }
@@ -478,7 +491,8 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            alert("Saved.");
+                            $(".toast-body").text("Saved.");
+                            $("#btnToast").click();
                             location.reload();
                         }
                     }
@@ -504,7 +518,8 @@
                 var inputnmUpdatedate = $("#inputnmUpdatedate").val();
 
                 if(inputnmUpdatedate==("")>0){
-                    alert("Select a date");
+                    $(".toast-body").text("Pick a date.");
+                    $("#btnToast").click();
                     $("#inputnmUpdatedate").focus();
                 }else{
                     checkExistingstatus_v();
@@ -520,7 +535,8 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            alert("Check No. is already exist.")
+                            $(".toast-body").text("Check Number exist.");
+                            $("#btnToast").click();
                         }else{
                             updateStatus_v();
                         }
@@ -539,6 +555,46 @@
                         if(response.success){
                             $("#btnClosemodal").click();
                             viewCheqdata_v();
+                            $(".toast-body").text("Updated.");
+                            $("#btnToast").click();
+                        }
+                    }
+                })
+            }
+
+            $(document).on("click","#btnRevert",function(e){
+                e.preventDefault();
+                $("#inputnmRequeststatus").val("Open");
+                $("#inputnmRfpno").val($(this).attr("data-rfpno"));
+                requestStatus_v();
+            })
+
+            function requestStatus_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryvouchering/requestStatus_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                           revertStatus_v();
+                        }
+                    }
+                })
+            }
+
+            function revertStatus_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entryvouchering/revertStatus_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Action completed.");
+                            $("#btnToast").click();
                         }
                     }
                 })

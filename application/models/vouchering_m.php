@@ -124,6 +124,28 @@
                 return array();
             }
         }
+
+        function requestStatus_m($rfpno,$values){
+            $this->db->where("rfpno",$rfpno);
+            $this->db->update("tblreceivedentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function revertStatus_m($checkno,$values){
+            $this->db->where("checkno",$checkno);
+            $this->db->update("tblcheckentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
     
 ?>

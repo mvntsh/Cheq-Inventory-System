@@ -197,5 +197,39 @@
             }
             echo json_encode($data);
         }
+
+        function requestStatus_c(){
+            $data["success"] = false;
+            
+            $rfpno = $this->input->post("txtnmRfpno");
+            $values = array(
+                "receivestatus" => $this->input->post("txtnmRequeststatus")
+            );
+
+            $response = $this->vouchering_m->requestStatus_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function revertStatus_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+
+            $values = array(
+                "status" => $this->input->post("txtnmStatus"),
+                "date" => $this->input->post("txtnmDate")
+            );
+
+            $response = $this->vouchering_m->revertStatus_m($checkno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
     }
 ?>
