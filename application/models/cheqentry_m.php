@@ -125,9 +125,9 @@
             }
         }
 
-        function requestStatus_m($rfpno,$values){
-            $this->db->where("rfpno",$rfpno);
-            $this->db->update("tblreceivedentry",$values);
+        function revertStatus_m($checkno,$values){
+            $this->db->where("checkno",$checkno);
+            $this->db->update("tblcheckentry",$values);
 
             if($this->db->affected_rows()>0){
                 return true;
@@ -136,9 +136,30 @@
             }
         }
 
-        function revertStatus_m($checkno,$values){
+        function cashAdvance_m($rfpno){
+            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND payment='Cash Advance'")->result_array();
+
+            if($query){
+                return $query;
+            }else{
+                return false;
+            }
+        }
+
+        function saveCheqprop_m($values){
+            $this->db->insert("tblpropcheckentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function removeCheqstatus_m($checkno){
             $this->db->where("checkno",$checkno);
-            $this->db->update("tblcheckentry",$values);
+            $this->db->where("status !=",'On-hand');
+            $this->db->delete("tblpropcheckentry");
 
             if($this->db->affected_rows()>0){
                 return true;

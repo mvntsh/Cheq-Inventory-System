@@ -22,7 +22,7 @@
                             </a>
                             <ul class="dropdown-menu bg-secondary">
                             <li><a class="dropdown-item" href="entryreceiving">Receiving Section</a></li>
-                            <li><a class="dropdown-item" href="entryvouchering">Vouchering Section</a></li>
+                            <li><a class="dropdown-item" href="entrycheqvoucher">Vouchering Section</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

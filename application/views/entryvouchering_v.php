@@ -34,7 +34,7 @@
                         <td><input type="text" name="txtnmTransactiontype" class="form-control form-control-lg" readonly id="inputnmTransactiontype"></td>
                         <td><input type="text" name="txtnmAvailableamount" class="form-control form-control-lg" readonly id="inputnmAvailableamount"></td>
                         <td><input type="text" name="txtnmDivision" class="form-control form-control-lg" readonly id="inputnmDivision"></td>
-                        <td><input type="text" name="txtnmRequeststatus" id="inputnmRequeststatus" hidden><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
+                        <td><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
                         <td><input type="date" name="txtnmReceivedate" class="form-control form-control-lg" readonly id="inputnmRequestdate"></td>
                     </tr>
                     <tr>
@@ -74,7 +74,7 @@
                                 <input type="text" name="txtnmNOV" value="0.00">
                                 <input type="text" name="txtnmTax" value="0.00">
                                 <input type="text" name="txtnmTaxamount" value="0.00">
-                                <input type="text" name="txtnmStatus" value="On-hand">
+                                <input type="text" name="txtnmStatus" value="On-hand" id="inputnmStatus">
                                 <input type="text" name="txtnmDate" value="0000-00-00">
                                 <input type="text" name="txtnmCount" value="1">
                             </div>
@@ -110,8 +110,8 @@
     </div>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" id="openUpdatemodal" hidden></button>
-
-    <!-- Modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regionModal" id="openRegionmodal" hidden></button>
+    <!-- updateModal -->
     <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="background-color: #8c8c8c;">
@@ -139,6 +139,28 @@
                         </select>
                         <label for="inputnmUpdatedate">Date</label>
                         <input type="date" name="txtnmUpdatedate" class="form-control" id="inputnmUpdatedate">
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top-color: transparent;">
+                    <button type="button" class="btn btn-dark" id="btnUpdate">Update.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- regionModal -->
+    <div class="modal fade" id="regionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #8c8c8c;">
+                <div class="modal-header" style="border-bottom-color: transparent;">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Status.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmRegion">
+                        <label for="inputnmCarrfno">CARRF No.</label>
+                        <input type="text" name="txtnmCarrfno" class="form-control" id="inputnmCarrfno">
+                        <label for="inputnmUpdatepayee">Payee</label>
+                        <input type="text" name="txtnmUpdatepayee" class="form-control" id="inputnmUpdatepayee">
                     </form>
                 </div>
                 <div class="modal-footer" style="border-top-color: transparent;">
@@ -179,7 +201,7 @@
                                             <button class="btn btn-primary" id="btnPrint">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/></svg>
                                             </button>
-                                            <button data-rfpno="${x['rfpno']}" data-amount="${x['amount']}" class="btn btn-danger" id="btnRevert">
+                                            <button data-checkno="${x['checkno']}" data-amount="${x['amount']}" data-status="${x['status']}" class="btn btn-danger" id="btnRevert">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
                                             </button>
                                         </td>
@@ -233,7 +255,7 @@
                                             <button class="btn btn-primary" id="btnPrint">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16"><path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/><path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/></svg>
                                             </button>
-                                            <button data-rfpno="${x['rfpno']}" data-amount="${x['amount']}" class="btn btn-danger" id="btnRevert">
+                                            <button data-checkno="${x['checkno']}" data-amount="${x['amount']}" data-status="${x['status']}" class="btn btn-danger" id="btnRevert">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
                                             </button>
                                         </td>
@@ -327,7 +349,7 @@
 
                             response.data.forEach(function(x){
                                 div += `
-                                    <button id="btnGetrequestdata" data-payee="${x['payee']}" data-payment="${x['payment']}" data-division="${x['division']}" data-availableamount="${x['dummyamount']}" data-receivestatus="${x['receivestatus']}" data-receiveremark="${x['receiveremarks']}" data-datareceived="${x['datareceived']}" data-description="${x['description']}"</button>
+                                    <button id="btnGetrequestdata" data-payee="${x['payee']}" data-payment="${x['payment']}" data-division="${x['division']}" data-availableamount="${x['dummyamount']}" data-receivestatus="${x['receivestatus']}" data-receiveremark="${x['receiveremarks']}" data-datareceived="${x['datareceived']}" data-description="${x['description']}" data-carrfno="${x['carrfno']}"</button>
                                 `;
                             })
                             $("#divGetrfdata").html(div);
@@ -348,8 +370,26 @@
                 $("#inputnmRequestremark").val($(this).attr("data-receiveremark"));
                 $("#inputnmRequestdate").val($(this).attr("data-datareceived"));
                 $("#inputnmDescription").val($(this).attr("data-description"));
-                $("#inputnmCheckdate").focus();
+                $("#inputnmCarrfno").val($(this).attr("data-carrfno"));
+                cashAdvance_v();
             })
+
+            function cashAdvance_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/cashAdvance_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $("#openRegionmodal").click();
+                        }else{
+                            $("#inputnmCheckdate").focus();
+                        }
+                    }
+                })
+            }
 
             $("#btnSave").click(function(e){
                 e.preventDefault();
@@ -492,12 +532,33 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            $(".toast-body").text("Saved.");
-                            $("#btnToast").click();
-                            location.reload();
+                            saveCheqprop_v();
                         }
                     }
                 })
+            }
+
+            function saveCheqprop_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/saveCheqprop_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Saved.");
+                            $("#btnToast").click();
+                            clearField();
+                            viewCheqdata_v();
+                        }
+                    }
+                })
+            }
+
+            function clearField(){
+                $("#inputnmRfpno,#inputnmPayee,#inputnmTransactiontype,#inputnmAvailableamount,#inputnmAvailableamount,#inputnmDivision,#inputnmRequestremark,#inputnmRequestdate").val("");
+                $("#inputnmCheckdate,#inputnmCheckno,#inputnmVoucherdate,#inputnmVoucherno,#inputnmAmount,#inputnmDescription").val("");
             }
 
             $(document).on("click","#btnEdit",function(e){
@@ -565,26 +626,10 @@
 
             $(document).on("click","#btnRevert",function(e){
                 e.preventDefault();
-                $("#inputnmRequestremark").val("Open");
-                $("#inputnmRfpno").val($(this).attr("data-rfpno"));
-                $("#inputnmAmount").val($(this).attr("data-amount"))
-                requestStatus_v();
+                $("#inputnmCheckno").val($(this).attr("data-checkno"));
+                $("#inputnmAmount").val($(this).attr("data-amount"));
+                revertStatus_v();
             })
-
-            function requestStatus_v(){
-                $.ajax({
-                    type:'ajax',
-                    method:'POST',
-                    url:'entrycheqvoucher/requestStatus_c',
-                    data:$("#frmInputs").serialize(),
-                    dataType:'json',
-                    success:function(response){
-                        if(response.success){
-                           revertStatus_v();
-                        }
-                    }
-                })
-            }
 
             function revertStatus_v(){
                 $.ajax({
@@ -595,6 +640,7 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
+                            $("#inputnmCheckno").val("");
                             $(".toast-body").text("Action completed.");
                             $("#btnToast").click();
                             viewCheqdata_v();

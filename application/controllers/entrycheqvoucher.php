@@ -198,16 +198,17 @@
             echo json_encode($data);
         }
 
-        function requestStatus_c(){
+        function revertStatus_c(){
             $data["success"] = false;
-            
-            $rfpno = $this->input->post("txtnmRfpno");
+
+            $checkno = $this->input->post("txtnmCheckno");
+
             $values = array(
-                "dummyamount" => $this->input->post("txtnmAmount"),
-                "receiveremarks" => $this->input->post("txtnmRequeststatus")
+                "status" => $this->input->post("txtnmStatus"),
+                "date" => $this->input->post("txtnmDate")
             );
 
-            $response = $this->cheqentry_m->requestStatus_m($rfpno,$values);
+            $response = $this->cheqentry_m->revertStatus_m($checkno,$values);
 
             if($response){
                 $data["success"] = true;
@@ -215,17 +216,59 @@
             echo json_encode($data);
         }
 
-        function revertStatus_c(){
+        function cashAdvance_c(){
             $data["success"] = false;
 
             $rfpno = $this->input->post("txtnmRfpno");
 
+            $response = $this->cheqentry_m->cashAdvance_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function saveCheqprop_c(){
+            $data["success"] = false;
+
             $values = array(
+                "bankname" => $this->input->post("txtnmBankname"),
+                "accountno" => $this->input->post("txtnmAccountno"),
+                "payee" => $this->input->post("txtnmPayee"),
+                "division" => $this->input->post("txtnmDivision"),
+                "rfpno" => $this->input->post("txtnmRfpno"),
+                "daterequest" => $this->input->post("txtnmReceivedate"),
+                "availableamount" => $this->input->post("txtnmAvailableamount"),
+                "checkno" => $this->input->post("txtnmCheckno"),
+                "checkdate" => $this->input->post("txtnmCheckdate"),
+                "checkvoucherno" => $this->input->post("txtnmVoucherno"),
+                "voucherdate" => $this->input->post("txtnmVoucherdate"),
+                "amount" => $this->input->post("txtnmAmount"),
+                "netofvat" => $this->input->post("txtnmNOV"),
+                "taxable" => $this->input->post("txtnmTax"),
+                "taxamount" => $this->input->post("txtnmTaxamount"),
+                "checkamount" => $this->input->post("txtnmAmount"),
                 "status" => $this->input->post("txtnmStatus"),
-                "date" => $this->input->post("txtnmDate")
+                "checkdescription" => $this->input->post("txtnmDescription"),
+                "date" => $this->input->post("txtnmDate"),
+                "datestaled" => $this->input->post("txtnmDatestaled")
             );
 
-            $response = $this->cheqentry_m->revertStatus_m($rfpno,$values);
+            $response = $this->cheqentry_m->saveCheqprop_m($values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function removeCheqstatus_c(){
+            $data["success"] = false;
+
+            $checkno = $this->input->post("txtnmCheckno");
+
+            $response = $this->cheqentry->removeCheqstatus_m($checkno);
 
             if($response){
                 $data["success"] = true;
