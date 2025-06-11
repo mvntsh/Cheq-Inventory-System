@@ -203,7 +203,8 @@
             
             $rfpno = $this->input->post("txtnmRfpno");
             $values = array(
-                "receivestatus" => $this->input->post("txtnmRequeststatus")
+                "dummyamount" => $this->input->post("txtnmAmount"),
+                "receiveremarks" => $this->input->post("txtnmRequeststatus")
             );
 
             $response = $this->vouchering_m->requestStatus_m($rfpno,$values);
@@ -224,7 +225,7 @@
                 "date" => $this->input->post("txtnmDate")
             );
 
-            $response = $this->vouchering_m->revertStatus_m($checkno,$values);
+            $response = $this->vouchering_m->revertStatus_m($rfpno,$values);
 
             if($response){
                 $data["success"] = true;
