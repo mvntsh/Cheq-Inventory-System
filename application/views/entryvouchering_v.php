@@ -155,7 +155,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/viewCheqdata_c',
+                    url:'entrycheqvoucher/viewCheqdata_c',
                     dataType:'json',
                     success:function(response){
                         if(response.success){
@@ -208,7 +208,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/searchCheqno_c',
+                    url:'entrycheqvoucher/searchCheqno_c',
                     data:$("#frmInputs").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -253,7 +253,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/listAccount_c',
+                    url:'entrycheqvoucher/listAccount_c',
                     dataType:'json',
                     success:function(response){
                         if(response.success){
@@ -318,7 +318,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/getRequest_c',
+                    url:'entrycheqvoucher/getRequest_c',
                     data:$("#inputnmRfpno").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -360,7 +360,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/checkRemark_c',
+                    url:'entrycheqvoucher/checkRemark_c',
                     data:$("#frmInputs").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -405,7 +405,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/showStaled_c',
+                    url:'entrycheqvoucher/showStaled_c',
                     data:$("#inputnmCheckdate").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -428,7 +428,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/selectBank_c',
+                    url:'entrycheqvoucher/selectBank_c',
                     data:$("#inputnmAccountno").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -451,7 +451,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/cheqnoExist_c',
+                    url:'entrycheqvoucher/cheqnoExist_c',
                     data:$("#inputnmCheckno").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -469,7 +469,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/vouchernoExist_c',
+                    url:'entrycheqvoucher/vouchernoExist_c',
                     data:$("#inputnmVoucherno").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -487,7 +487,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/saveCheq_c',
+                    url:'entrycheqvoucher/saveCheq_c',
                     data:$("#frmInputs").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -531,7 +531,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/checkExistingstatus_c',
+                    url:'entrycheqvoucher/checkExistingstatus_c',
                     data:$("#frmChequpdate").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -549,7 +549,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/updateStatus_c',
+                    url:'entrycheqvoucher/updateStatus_c',
                     data:$("#frmChequpdate").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -575,7 +575,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/requestStatus_c',
+                    url:'entrycheqvoucher/requestStatus_c',
                     data:$("#frmInputs").serialize(),
                     dataType:'json',
                     success:function(response){
@@ -590,7 +590,7 @@
                 $.ajax({
                     type:'ajax',
                     method:'POST',
-                    url:'entryvouchering/revertStatus_c',
+                    url:'entrycheqvoucher/revertStatus_c',
                     data:$("#frmInputs").serialize(),
                     dataType:'json',
                     success:function(response){

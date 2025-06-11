@@ -261,7 +261,8 @@
                 "description" => $this->input->post("txtnmDescription"),
                 "receivestatus" => $this->input->post("txtnmReceivestatus"),
                 "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark"),
-                "dummyamount" => $this->input->post("txtnmAmount")
+                "dummyamount" => $this->input->post("txtnmAmount"),
+                "carrfno" => $this->input->post("txtnmCarrfno")
             );
 
             $response = $this->receiving_m->insertData_m($values);

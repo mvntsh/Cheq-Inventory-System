@@ -1,5 +1,5 @@
 <?php
-    class vouchering_m extends CI_Model{
+    class cheqentry_m extends CI_Model{
         function __construct(){
             $this->load->database();
         }

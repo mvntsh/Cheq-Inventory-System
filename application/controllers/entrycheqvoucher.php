@@ -1,10 +1,10 @@
 <?php
-    class entryvouchering extends CI_Controller{
+    class entrycheqvoucher extends CI_Controller{
 
         function __construct(){
             parent::__construct();
             //Database here.
-            $this->load->model("vouchering_m");
+            $this->load->model("cheqentry_m");
         }
 
         function index(){
@@ -20,7 +20,7 @@
         function viewCheqdata_c(){
             $data["success"] = false;
 
-            $data["data"] = $this->vouchering_m->viewCheqdata_m();
+            $data["data"] = $this->cheqentry_m->viewCheqdata_m();
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -31,7 +31,7 @@
         function listAccount_c(){
             $data["success"] = false;
 
-            $data["data"] = $this->vouchering_m->listAccount_m();
+            $data["data"] = $this->cheqentry_m->listAccount_m();
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -44,7 +44,7 @@
 
             $rfpno = $this->input->post("txtnmRfpno");
 
-            $data["data"] = $this->vouchering_m->getRequest_m($rfpno);
+            $data["data"] = $this->cheqentry_m->getRequest_m($rfpno);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -80,7 +80,7 @@
                 "availablecheck" => $this->input->post("txtnmCount")
             );
 
-            $response = $this->vouchering_m->saveCheq_m($values);
+            $response = $this->cheqentry_m->saveCheq_m($values);
 
             if($response){
                 $data["success"] = true;
@@ -93,7 +93,7 @@
 
             $checkdate = $this->input->post("txtnmCheckdate");
 
-            $data["data"] = $this->vouchering_m->showStaled_m($checkdate);
+            $data["data"] = $this->cheqentry_m->showStaled_m($checkdate);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -106,7 +106,7 @@
             
             $accountno = $this->input->post("txtnmAccountno");
 
-            $data["data"] = $this->vouchering_m->selectBank_m($accountno);
+            $data["data"] = $this->cheqentry_m->selectBank_m($accountno);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -119,7 +119,7 @@
 
             $checkno = $this->input->post("txtnmCheckno");
 
-            $data["data"] = $this->vouchering_m->cheqnoExist_m($checkno);
+            $data["data"] = $this->cheqentry_m->cheqnoExist_m($checkno);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -132,7 +132,7 @@
 
             $checkvoucherno = $this->input->post("txtnmVoucherno");
 
-            $data["data"] = $this->vouchering_m->vouchernoExist_m($checkvoucherno);
+            $data["data"] = $this->cheqentry_m->vouchernoExist_m($checkvoucherno);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -145,7 +145,7 @@
 
             $rfpno = $this->input->post("txtnmRfpno");
 
-            $response = $this->vouchering_m->checkRemark_m($rfpno);
+            $response = $this->cheqentry_m->checkRemark_m($rfpno);
 
             if($response){
                 $data["success"] = true;
@@ -159,7 +159,7 @@
             $checkno = $this->input->post("txtnmUpdatecheckno");
             $status = $this->input->post("txtnmUpdatestatus");
 
-            $response = $this->vouchering_m->checkExistingstatus_m($checkno,$status);
+            $response = $this->cheqentry_m->checkExistingstatus_m($checkno,$status);
 
             if($response){
                 $data["success"] = true;
@@ -177,7 +177,7 @@
                 "date" => $this->input->post("txtnmUpdatedate")
             );
 
-            $response = $this->vouchering_m->updateStatus_m($checkno,$values);
+            $response = $this->cheqentry_m->updateStatus_m($checkno,$values);
 
             if($response){
                 $data["success"] = true;
@@ -190,7 +190,7 @@
 
             $checkno = $this->input->post("txtnmCheckno");
 
-            $data["data"] = $this->vouchering_m->searchCheqno_m($checkno);
+            $data["data"] = $this->cheqentry_m->searchCheqno_m($checkno);
 
             if(count($data["data"])>0){
                 $data["success"] = true;
@@ -207,7 +207,7 @@
                 "receiveremarks" => $this->input->post("txtnmRequeststatus")
             );
 
-            $response = $this->vouchering_m->requestStatus_m($rfpno,$values);
+            $response = $this->cheqentry_m->requestStatus_m($rfpno,$values);
 
             if($response){
                 $data["success"] = true;
@@ -225,7 +225,7 @@
                 "date" => $this->input->post("txtnmDate")
             );
 
-            $response = $this->vouchering_m->revertStatus_m($rfpno,$values);
+            $response = $this->cheqentry_m->revertStatus_m($rfpno,$values);
 
             if($response){
                 $data["success"] = true;

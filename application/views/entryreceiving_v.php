@@ -16,10 +16,18 @@
                         </select>
                         <label for="inputnmReceivedate">Received Date</label>
                         <input type="date" id="inputnmReceivedate" name="txtnmReceivedate" class="form-control">
-                        <label for="inputnmTrxntype">Transaction Type</label>
-                        <select name="txtnmTrxntype" id="inputnmTrxntype" class="form-control">
-                            <option></option>
-                        </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputnmTrxntype">Transaction Type</label>
+                                <select name="txtnmTrxntype" id="inputnmTrxntype" class="form-control" style="font-size: 9pt; height: 36pt;">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputnmCarrfno" style="line-height: 5%;">CARRF No.</label>
+                                <input type="text" id="inputnmCarrfno" name="txtnmCarrfno" class="form-control">
+                            </div>
+                        </div>
                         <label for="inputnmAmount" style="line-height: 5%;">Amount</label>
                         <input type="text" id="inputnmAmount" name="txtnmAmount" class="form-control">
                         <label for="inputnmDescription">Description</label>
@@ -73,40 +81,40 @@
         Trigger modal
     </button>
 
-    <!-- Modal -->
+    <!-- updateModal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" style="background-color: #454443;">
-        <div class="modal-content" style="background-color: #454443; border-color: transparent;">
-            <div class="modal-header" style="border-bottom: transparent;">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: #baae09;" id="spanRfpno"></span></h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="frmUpdate">
-                    <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
-                    <input type="text" id="inputnmUpdaterfpno" name="txtnmUpdaterfpno" hidden>
-                    <input type="text" id="inputnmUpdatereceiveremark" name="txtnmUpdatereceiveremark" value="Open" hidden>
-                    <input type="text" id="inputnmUpdatereceivestatus" name="txtnmUpdatereceivestatus" value="Process" hidden>
-                    <label for="inputnmUpdatepayee">Payee</label>
-                    <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
-                        <option></option>
-                    </select>
-                    <label for="inputnmUpdatetrxntype">Transaction Type</label>
-                    <select name="txtnmUpdatetrxntype" id="inputnmUpdatetrxntype" class="form-control">
-                        <option></option>
-                    </select>
-                    <label for="inputnmUpdateamount">Amount</label>
-                    <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control">
-                    <label for="inputnmUpdatedescription">Description</label>
-                    <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
-                </form>
-            </div>
-            <div class="modal-footer" style="border-top: transparent;">
-                <button type="button" class="btn btn-danger" id="btnRemove">Delete</button>
-                <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
+        <div class="modal-dialog" style="background-color: #454443;">
+            <div class="modal-content" style="background-color: #454443; border-color: transparent;">
+                <div class="modal-header" style="border-bottom: transparent;">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Update RFP No. <span style="color: #baae09;" id="spanRfpno"></span></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClosemodal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmUpdate">
+                        <input type="text" id="inputnmReceivingid" name="txtnmReceivingid" hidden>
+                        <input type="text" id="inputnmUpdaterfpno" name="txtnmUpdaterfpno" hidden>
+                        <input type="text" id="inputnmUpdatereceiveremark" name="txtnmUpdatereceiveremark" value="Open" hidden>
+                        <input type="text" id="inputnmUpdatereceivestatus" name="txtnmUpdatereceivestatus" value="Process" hidden>
+                        <label for="inputnmUpdatepayee">Payee</label>
+                        <select name="txtnmUpdatepayee" id="inputnmUpdatepayee" class="form-control">
+                            <option></option>
+                        </select>
+                        <label for="inputnmUpdatetrxntype">Transaction Type</label>
+                        <select name="txtnmUpdatetrxntype" id="inputnmUpdatetrxntype" class="form-control">
+                            <option></option>
+                        </select>
+                        <label for="inputnmUpdateamount">Amount</label>
+                        <input type="text" name="txtnmUpdateamount" id="inputnmUpdateamount" class="form-control">
+                        <label for="inputnmUpdatedescription">Description</label>
+                        <textarea name="txtnmUpdatedescription" id="inputnmUpdatedescription" style="height: 100pt;" class="form-control"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: transparent;">
+                    <button type="button" class="btn btn-danger" id="btnRemove">Delete</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate">Save Changes</button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -294,7 +302,7 @@
                                         <td style="zoom: 70%; text-align: center;">
                                             <button data-reid="${x['re_id']}" data-rfpno="${x['rfpno']}" data-payee="${x['payee']}" data-payment="${x['payment']}" data-amount="${x['amount']}" data-description="${x['description']}" id="btnEdit" class="btn btn-primary btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/></svg> Edit</button>
                                             <button id="btnRevert" class="btn btn-dark btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16"><path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/></svg> Revert</button>
-                                            <button id="btnProcess" class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
+                                            <button data-reid="${x['re_id']}" id="btnProcess" class="btn btn-success btn-sm" style="border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/></svg> Process</button>
                                         </td>
                                     </tr>
                                     </tr>
@@ -500,7 +508,7 @@
 
             $(document).on("click","#btnProcess",function(e){
                 e.preventDefault();
-                $("#inputnmUpdaterfpno").val($(this).attr("data-rfpno"));
+                $("#inputnmReceivingid").val($(this).attr("data-reid"));
                 updateStatus_v();
             })
 
@@ -553,8 +561,30 @@
 
             $("#btnInsert").click(function(e){
                 e.preventDefault();
-                emptyField();
+                verifyTransactiontype_c();
             })
+
+            function verifyTransactiontype_c(){
+                var inputnmTrxntype = $("#inputnmTrxntype").val();
+
+                if(inputnmTrxntype=="Cash Advance"){
+                    requiredCARRF();
+                }else{
+                    $("#inputnmCarrfno").val("N/A");
+                    emptyField();
+                }
+            }
+
+            function requiredCARRF(){
+                var inputnmCarrfno = $("#inputnmCarrfno").val();
+
+                if(inputnmCarrfno==("")>0){
+                    $(".toast-body").text("Please input CARRF No.");
+                    $("#btnToast").click();
+                }else{
+                    emptyField();
+                }
+            }
 
             function emptyField(){
                 var inputnmRfpno = $("#inputnmRfpno").val();
@@ -609,7 +639,7 @@
                             $(".toast-body").text("Saved.");
                             $("#btnToast").click();
                             viewReceived_v();
-                            $("#inputnmRfpno,#inputnmReceivedate,#inputnmAmount,#inputnmDescription").val("");
+                            $("#inputnmRfpno,#inputnmReceivedate,#inputnmAmount,#inputnmDescription,#inputnmCarrfno").val("");
                             $("#inputnmRfpno").focus();
                             //Lacking close modal.
                         }
