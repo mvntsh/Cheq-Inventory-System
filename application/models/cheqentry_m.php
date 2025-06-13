@@ -167,6 +167,58 @@
                 return false;
             }
         }
+
+        function getDifference_m($dummyamount,$checkamount,$rfpno){
+            $query = $this->db->query("SELECT *,COALESCE(FORMAT(REPLACE('$dummyamount' - '$checkamount',',',''),2),'') AS difference FROM tblreceivedentry WHERE rfpno='$rfpno';")->result_array();
+
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function updateRequestamount_m($rfpno,$values){
+            $this->db->where("rfpno",$rfpno);
+            $this->db->update("tblreceivedentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function exceedRequest_m($rfpno,$checkamount){
+            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND dummyamount >= '$checkamount';")->result_array();
+        
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function closeRequest_m($rfpno){
+            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND dummyamount='0.00'")->result_array();
+            
+            if(count($query)>0){
+                return $query;
+            }else{
+                return array();
+            }
+        }
+
+        function remarkClose_m($rfpno,$values){
+            $this->db->where("rfpno",$rfpno);
+            $this->db->update("tblreceivedentry",$values);
+
+            if($this->db->affected_rows()>0){
+                return true;
+            }else{
+                return array();
+            }
+        }
     }
     
 ?>

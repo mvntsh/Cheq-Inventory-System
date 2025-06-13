@@ -268,7 +268,81 @@
 
             $checkno = $this->input->post("txtnmCheckno");
 
-            $response = $this->cheqentry->removeCheqstatus_m($checkno);
+            $response = $this->cheqentry_m->removeCheqstatus_m($checkno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function getDifference_c(){
+            $data["success"] = false;
+
+            $dummyamount = $this->input->post("txtnmAvailableamount");
+            $checkamount = $this->input->post("txtnmAmount");
+            $rfpno = $this->input->post("txtnmRfpno");
+
+            $data["data"] = $this->cheqentry_m->getDifference_m($dummyamount,$checkamount,$rfpno);
+
+            if(count($data["data"])>0){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function updateRequestamount_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+            $values = array(
+                "dummyamount" =>$this->input->post("txtnmAvailableamount")
+            );
+
+            $response = $this->cheqentry_m->updateRequestamount_m($rfpno,$values);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function exceedRequest_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+            $checkamount = $this->input->post("txtnmAmount");
+
+            $response = $this->cheqentry_m->exceedRequest_m($rfpno,$checkamount);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function closeRequest_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+
+            $response = $this->cheqentry_m->closeRequest_m($rfpno);
+
+            if($response){
+                $data["success"] = true;
+            }
+            echo json_encode($data);
+        }
+
+        function remarkClose_c(){
+            $data["success"] = false;
+
+            $rfpno = $this->input->post("txtnmRfpno");
+            $values = array(
+                "receiveremarks" => $this->input->post("txtnmRequestremark")
+            );
+
+            $response = $this->cheqentry_m->remarkClose_m($rfpno,$values);
 
             if($response){
                 $data["success"] = true;

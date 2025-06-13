@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td class="input-group" style="border-color: transparent;">
-                            <input type="text" name="txtnmRfpno" class="form-control form-control-lg" id="inputnmRfpno">
+                            <input autocomplete="off" type="text" name="txtnmRfpno" class="form-control form-control-lg" id="inputnmRfpno">
                             <button id="btnRfpnodata" class="btn btn-warning" style="height: 61px; border-radius: 0px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
                             </button>
@@ -32,7 +32,7 @@
                         </td>
                         <td><input type="text" name="txtnmPayee" class="form-control form-control-lg" readonly id="inputnmPayee"></td>
                         <td><input type="text" name="txtnmTransactiontype" class="form-control form-control-lg" readonly id="inputnmTransactiontype"></td>
-                        <td><input type="text" name="txtnmAvailableamount" class="form-control form-control-lg" readonly id="inputnmAvailableamount"></td>
+                        <td><input type="text" name="txtnmAvailableamount" class="form-control form-control-lg" readonly id="inputnmAvailableamount"><div id="divDifference" hidden></div></td>
                         <td><input type="text" name="txtnmDivision" class="form-control form-control-lg" readonly id="inputnmDivision"></td>
                         <td><input type="text" name="txtnmRequestremark" class="form-control form-control-lg" readonly id="inputnmRequestremark"></td>
                         <td><input type="date" name="txtnmReceivedate" class="form-control form-control-lg" readonly id="inputnmRequestdate"></td>
@@ -59,17 +59,17 @@
                             </select>
                             <div id="divBankname" hidden></div>
                         </td>
-                        <td><input type="date" name="txtnmCheckdate" class="form-control form-control-lg" id="inputnmCheckdate"><div id="divCheckdate" hidden></div></td>
+                        <td><input autocomplete="off" type="date" name="txtnmCheckdate" class="form-control form-control-lg" id="inputnmCheckdate"><div id="divCheckdate" hidden></div></td>
                         <td>
                             <div class="input-group">
-                                <input type="text" name="txtnmCheckno" class="form-control form-control-lg" id="inputnmCheckno"><button id="btnSearch" class="btn btn-warning" style="height: 61px; border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg></button>
+                                <input type="text" autocomplete="off" name="txtnmCheckno" class="form-control form-control-lg" id="inputnmCheckno"><button id="btnSearch" class="btn btn-warning" style="height: 61px; border-radius: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg></button>
                             </div>
                         </td>
                         <td><input type="date" name="txtnmVoucherdate" class="form-control form-control-lg" id="inputnmVoucherdate"></td>
-                        <td><input type="text" name="txtnmVoucherno" class="form-control form-control-lg" id="inputnmVoucherno"></td>
-                        <td><input type="text" name="txtnmAmount" class="form-control form-control-lg" id="inputnmAmount"></td>
+                        <td><input type="text" autocomplete="off" name="txtnmVoucherno" class="form-control form-control-lg" id="inputnmVoucherno"></td>
+                        <td><input type="text" autocomplete="off" name="txtnmAmount" class="form-control form-control-lg" id="inputnmAmount"></td>
                         <td>
-                            <input type="text" name="txtnmDescription" class="form-control form-control-lg" id="inputnmDescription">
+                            <input type="text" autocomplete="off" name="txtnmDescription" class="form-control form-control-lg" id="inputnmDescription">
                             <div hidden>
                                 <input type="text" name="txtnmNOV" value="0.00">
                                 <input type="text" name="txtnmTax" value="0.00">
@@ -301,7 +301,7 @@
             $('#inputnmAmount').keypress(function(e){    
             
                 var charCode = (e.which) ? e.which : event.keyCode    
-                if (String.fromCharCode(charCode).match(/[^0-9,.]/g))
+                if (String.fromCharCode(charCode).match(/[^0-9.]/g))
                 return false;                        
 
             });
@@ -372,6 +372,7 @@
                 $("#inputnmDescription").val($(this).attr("data-description"));
                 $("#inputnmCarrfno").val($(this).attr("data-carrfno"));
                 cashAdvance_v();
+                checkRemark_v();
             })
 
             function cashAdvance_v(){
@@ -391,11 +392,6 @@
                 })
             }
 
-            $("#btnSave").click(function(e){
-                e.preventDefault();
-                checkRemark_v();
-            })
-
             function checkRemark_v(){
                 $.ajax({
                     type:'ajax',
@@ -405,14 +401,20 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            alert("Request remark is closed.");
+                            alert("Request status is closed.");
+                            location.reload();
                         }else{
-                            emptyField();
-                            $("#inputnmRequestremark").val("Closed");
+                            
                         }
                     }
                 })
             }
+
+            $("#btnSave").click(function(e){
+                e.preventDefault();
+                //subtract availableamount to checkamount.
+                emptyField();
+            })
 
             function emptyField(){
                 var inputnmCheckdate = $("#inputnmCheckdate").val();
@@ -437,8 +439,121 @@
                     $(".toast-body").text("Input an amount.");
                     $("#btnToast").click();
                 }else{
-                    showStaled_v();
+                    exceedRequest_v();
                 }
+            }
+
+            function exceedRequest_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/exceedRequest_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            maskAmount();
+                        }else{
+                            $(".toast-body").text("Request is unsuccessful, You have exceed to the requested amount.");
+                            $("#btnToast").click();
+                        }
+                    }
+                })
+            }
+
+            function maskAmount(){
+                var inputnmAvailableamount = $("#inputnmAvailableamount").val().replace(/,/g, '');
+                $("#inputnmAvailableamount").val(inputnmAvailableamount);
+
+                var inputnmAmount = $("#inputnmAmount").val().replace(/,/g, '');
+                $("#inputnmAmount").val(inputnmAmount);
+                
+                getDifference_v();
+            }
+
+            function getDifference_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/getDifference_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            var div = '';
+
+                            response.data.forEach(function(x){
+                                div += `
+                                    <input type="text" value="${x['difference']}" id="inputnmDifference">
+                                `;
+                            })
+                            $("#divDifference").html(div);
+                            var inputnmDifference = $("#inputnmDifference").val();
+                            $("#inputnmAvailableamount").val(inputnmDifference);
+                            $("#inputnmAmount").keyup();
+
+                            updateRequestamount_v();
+                        }else{
+                            
+                        }
+                    }
+                })
+            }
+
+            function updateRequestamount_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/updateRequestamount_c',
+                    data:$('#frmInputs').serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                             closeRequest_c();
+                        }else{
+
+                        }
+                    }
+                })
+            }
+
+            function closeRequest_c(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/closeRequest_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $("#inputnmRequestremark").val("Closed");
+                            remarkClose_v();
+                        }else{
+                            $(".toast-body").text("Proceed transaction.");
+                            $("#btnToast").click();
+                            checkRemark_v();
+                        }
+                    }
+                })
+            }
+
+            function remarkClose_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/remarkClose_c',
+                    data:$("#frmInputs").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            $(".toast-body").text("Transaction is close.");
+                            $("#btnToast").click();
+                            showStaled_v();
+                        }else{
+                            showStaled_v();
+                        }
+                    }
+                })
             }
 
             function showStaled_v(){
@@ -549,8 +664,9 @@
                         if(response.success){
                             $(".toast-body").text("Saved.");
                             $("#btnToast").click();
+                            updateRequestamount_v();
                             clearField();
-                            viewCheqdata_v();
+                            viewCheqdata_v(); 
                         }
                     }
                 })
