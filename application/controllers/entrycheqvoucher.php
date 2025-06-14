@@ -13,7 +13,7 @@
             $this->load->view("common/aheader",$data);
             $this->load->view("common/anavbar");
             $this->load->view("common/bcss");
-            $this->load->view("entryvouchering_v");
+            $this->load->view("entrycheqvoucher_v");
             $this->load->view("common/cfooter");
         }
 

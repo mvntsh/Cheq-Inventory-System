@@ -171,6 +171,7 @@
     </div>
     <script type="text/javascript">    
         $(document).ready(function(){
+            $("#inputnmRfpno").focus();
             viewCheqdata_v();
             listAccount_v();
             function viewCheqdata_v(){
