@@ -8,7 +8,7 @@
         }
 
         function index(){
-            $data["Title"] = "Vouchering";
+            $data["Title"] = "Cheq Entry";
 
             $this->load->view("common/aheader",$data);
             $this->load->view("common/anavbar");
