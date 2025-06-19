@@ -453,6 +453,7 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
+                            selectBank_v();
                             maskAmount();
                         }else{
                             $(".toast-body").text("Request is unsuccessful, You have exceed to the requested amount.");
@@ -460,6 +461,29 @@
                         }
                     }
                 })
+            }
+
+             function selectBank_v(){
+                $.ajax({
+                    type:'ajax',
+                    method:'POST',
+                    url:'entrycheqvoucher/selectBank_c',
+                    data:$("#inputnmAccountno").serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        if(response.success){
+                            var div = '';
+
+                            response.data.forEach(function(x){
+                                div += `
+                                    <input type="text" name="txtnmBankname" value="${x['bankname']}" id="inputnmBankname">
+                                `;
+                            })
+                            $("#divBankname").html(div);
+                            
+                        }
+                    }
+                }) 
             }
 
             function maskAmount(){
@@ -573,34 +597,11 @@
                                     <input type="date" name="txtnmDatestaled" value="${x['dateStaled']}" id="inputnmDatestaled">
                                 `;
                             })
+                            cheqnoExist_v();
                             $("#divCheckdate").html(div);
-                            selectBank_v();
                         }
                     }
                 })
-            }
-
-            function selectBank_v(){
-                $.ajax({
-                    type:'ajax',
-                    method:'POST',
-                    url:'entrycheqvoucher/selectBank_c',
-                    data:$("#inputnmAccountno").serialize(),
-                    dataType:'json',
-                    success:function(response){
-                        if(response.success){
-                            var div = '';
-
-                            response.data.forEach(function(x){
-                                div += `
-                                    <input type="text" name="txtnmBankname" value="${x['bankname']}" id="inputnmBankname">
-                                `;
-                            })
-                            $("#divBankname").html(div);
-                            cheqnoExist_v();
-                        }
-                    }
-                }) 
             }
 
             function cheqnoExist_v(){
