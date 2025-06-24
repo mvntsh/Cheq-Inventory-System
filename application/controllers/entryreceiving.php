@@ -155,7 +155,8 @@
 
             $re_id = $this->input->post("txtnmReceivingid");
             $values = array(
-                "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark")
+                "receiveremarks" => $this->input->post("txtnmUpdatereceiveremark"),
+                "dummyamount" =>$this->input->post("txtnmUpdateamount")
             );
 
             $response = $this->receiving_m->updateRemark_m($re_id,$values);

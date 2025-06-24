@@ -210,6 +210,7 @@
                                 `;
                             })
                             $("#tblCheqdata tbody").html(tbody);
+                            $("#inputnmRfpno").focus();
                         }
                     }
                 })
@@ -554,9 +555,7 @@
                             $("#inputnmRequestremark").val("Closed");
                             remarkClose_v();
                         }else{
-                            $(".toast-body").text("Proceed transaction.");
-                            $("#btnToast").click();
-                            checkRemark_v();
+                            remarkClose_v();
                         }
                     }
                 })
@@ -571,8 +570,6 @@
                     dataType:'json',
                     success:function(response){
                         if(response.success){
-                            $(".toast-body").text("Transaction is close.");
-                            $("#btnToast").click();
                             showStaled_v();
                         }else{
                             showStaled_v();
@@ -645,7 +642,7 @@
                     type:'ajax',
                     method:'POST',
                     url:'entrycheqvoucher/saveCheq_c',
-                    data:$("#frmInputs").serialize(),
+                    data:$("#frmInputs,#inputnmUserid").serialize(),
                     dataType:'json',
                     success:function(response){
                         if(response.success){
@@ -668,7 +665,7 @@
                             $("#btnToast").click();
                             updateRequestamount_v();
                             clearField();
-                            viewCheqdata_v(); 
+                            viewCheqdata_v();
                         }
                     }
                 })

@@ -77,7 +77,8 @@
                 "checkdescription" => $this->input->post("txtnmDescription"),
                 "date" => $this->input->post("txtnmDate"),
                 "datestaled" => $this->input->post("txtnmDatestaled"),
-                "availablecheck" => $this->input->post("txtnmCount")
+                "availablecheck" => $this->input->post("txtnmCount"),
+                "user_id" => $this->input->post("txtnmUserid")
             );
 
             $response = $this->cheqentry_m->saveCheq_m($values);
