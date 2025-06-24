@@ -336,7 +336,6 @@
                             $("#btnToast").click();
                             viewReceived_v();
                             $("#inputnmSearch").val("").focus();
-                            $("#btnClosemodal").click();
                         }
                     }
                 })
@@ -525,10 +524,12 @@
                             $(".toast-body").text("Processed.");
                             $("#btnToast").click();
                             viewReceived_v();
+                            $("#inputnmSearch").val("").focus();
                         }else{
                             $(".toast-body").text("Request already processed.");
                             $("#btnToast").click();
                             viewReceived_v();
+                            $("#inputnmSearch").val("").focus();
                         }
                     }
                 })
@@ -639,10 +640,10 @@
                         if(response.success){
                             $(".toast-body").text("Saved.");
                             $("#btnToast").click();
-                            viewReceived_v();
                             $("#inputnmRfpno,#inputnmReceivedate,#inputnmAmount,#inputnmDescription,#inputnmCarrfno").val("");
+                            $("#btnClosemodal").click();
+                            viewReceived_v();
                             $("#inputnmRfpno").focus();
-                            //Lacking close modal.
                         }
                     }
                 })

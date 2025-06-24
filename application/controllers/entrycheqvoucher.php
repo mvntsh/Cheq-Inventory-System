@@ -308,20 +308,6 @@
             echo json_encode($data);
         }
 
-        function exceedRequest_c(){
-            $data["success"] = false;
-
-            $rfpno = $this->input->post("txtnmRfpno");
-            $checkamount = $this->input->post("txtnmAmount");
-
-            $response = $this->cheqentry_m->exceedRequest_m($rfpno,$checkamount);
-
-            if($response){
-                $data["success"] = true;
-            }
-            echo json_encode($data);
-        }
-
         function closeRequest_c(){
             $data["success"] = false;
 

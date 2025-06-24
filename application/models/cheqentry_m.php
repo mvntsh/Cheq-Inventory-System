@@ -189,16 +189,6 @@
             }
         }
 
-        function exceedRequest_m($rfpno,$checkamount){
-            $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND amount >= '$checkamount';")->result_array();
-        
-            if(count($query)>0){
-                return $query;
-            }else{
-                return array();
-            }
-        }
-
         function closeRequest_m($rfpno){
             $query = $this->db->query("SELECT * FROM `tblreceivedentry` WHERE rfpno='$rfpno' AND dummyamount='0.00'")->result_array();
             

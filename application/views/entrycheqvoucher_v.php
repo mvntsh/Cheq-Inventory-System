@@ -441,30 +441,12 @@
                     $(".toast-body").text("Input an amount.");
                     $("#btnToast").click();
                 }else{
-                    exceedRequest_v();
+                    selectBank_v();
+                    maskAmount();
                 }
             }
 
-            function exceedRequest_v(){
-                $.ajax({
-                    type:'ajax',
-                    method:'POST',
-                    url:'entrycheqvoucher/exceedRequest_c',
-                    data:$("#frmInputs").serialize(),
-                    dataType:'json',
-                    success:function(response){
-                        if(response.success){
-                            selectBank_v();
-                            maskAmount();
-                        }else{
-                            $(".toast-body").text("Request is unsuccessful, You have exceed to the requested amount.");
-                            $("#btnToast").click();
-                        }
-                    }
-                })
-            }
-
-             function selectBank_v(){
+            function selectBank_v(){
                 $.ajax({
                     type:'ajax',
                     method:'POST',
